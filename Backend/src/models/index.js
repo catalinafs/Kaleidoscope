@@ -45,6 +45,6 @@ Object.keys(db).forEach((model) => {
 db.sequelieze = sequelieze;
 db.Sequelize = Sequelize;
 
-sequelieze.sync({});
+sequelieze.sync().then(() => console.log('base de datos conectada'));
 
 module.exports = db;

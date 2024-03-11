@@ -44,14 +44,27 @@ const theme = createTheme({
         MuiTextField: {
             styleOverrides: {
                 root: {
-                    "& .MuiOutlinedInput-root": {
+                    "& .MuiInput-underline": {
                         fontSize: '14px',
                         fontWeight: 400,
-                        color: "#444444ea",
+                        color: colors.text,
+                        borderColor: '#394898',
                         borderRadius: "6px",
                         "&.Mui-disabled": {
-                            backgroundColor: "#180f0c",
+                            backgroundColor: "#394898",
                         },
+                    },
+                    '.MuiFormLabel-root': {
+                        color: colors.primary,
+                    },
+                    ".css-1uktm3m-MuiInputBase-root-MuiInput-root:hover" : {
+                        borderBottomColor: colors.primary,
+                    },
+                    ".css-1uktm3m-MuiInputBase-root-MuiInput-root::after": {
+                        borderBottomColor: colors.primary,
+                    },
+                    '.css-1uktm3m-MuiInputBase-root-MuiInput-root::before': {
+                        borderBottomColor: colors.primary,
                     },
                 },
             },

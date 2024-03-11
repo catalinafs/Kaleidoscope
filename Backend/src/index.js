@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
+const cors = require('cors');
 dotenv.config();
 
 
@@ -12,6 +13,7 @@ const ordersApi = require("./router/order");
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cors());
 
 userApi(app);
 productsApi(app)

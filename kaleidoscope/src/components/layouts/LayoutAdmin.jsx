@@ -1,11 +1,11 @@
 // Custom Components
-import Navbar from "../navbar";
+import Navbar from "../ui/navbar";
 
 // Material UI
 import { Stack } from "@mui/material";
 
 // Colors, Imgs, Icons, Css, etc.
-import colors from '../../../utils/colors';
+import colors from '../../utils/colors';
 
 const LayoutAdmin = ({ children }) => {
     return (
