@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material/styles";
+import colors from "./colors";
 
 const theme = createTheme({
     palette: {
@@ -96,31 +97,37 @@ const theme = createTheme({
                 {
                     props: { variant: "outlined" },
                     style: {
+                        borderColor: colors.primary,
+                        color: colors.primary,
                         borderWidth: "2px",
                         ":hover": {
                             borderWidth: "2px",
+                            borderColor: "#4a94b9",
+                            color: '#4a94b9',
                         },
                     },
                 },
                 {
                     props: { variant: "contained" },
                     style: {
-                        color: '#ffffff',
-                        backgroundColor: "#000000",
+                        color: colors.white,
+                        backgroundColor: colors.secondary,
                         border: 0,
+                        boxShadow: 'none',
                         ":hover": {
-                            backgroundColor: "#252525",
+                            boxShadow: 'none',
+                            backgroundColor: "#3ea089",
                         },
                     },
                 },
             ],
             styleOverrides: {
                 root: {
-                    fontSize: '14px',
+                    fontSize: '15px',
                     fontWeight: 400,
-                    borderRadius: "6px",
+                    borderRadius: "25px",
                     textTransform: "none",
-                    padding: "8px 16px",
+                    padding: "4px 18px",
                 },
             },
         },

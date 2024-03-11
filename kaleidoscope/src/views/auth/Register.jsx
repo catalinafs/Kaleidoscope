@@ -1,8 +1,10 @@
+import Layout from "../../components/ui/layouts";
+
 const Register = () => {
     return (
-        <div>
+        <Layout>
             register
-        </div>
+        </Layout>
     );
 }
 
