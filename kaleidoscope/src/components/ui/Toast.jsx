@@ -31,7 +31,7 @@ const Toast = ({ text, icon, styles }) => {
         background: '#252525',
         color: '#f8f8f8',
         position: 'bottom-start',
-        timer: 2000,
+        timer: 2500,
         padding: '10px',
         allowEscapeKey: false,
         showConfirmButton: false,

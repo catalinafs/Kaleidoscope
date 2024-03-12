@@ -57,7 +57,7 @@ const theme = createTheme({
                     '.MuiFormLabel-root': {
                         color: colors.primary,
                     },
-                    ".css-1uktm3m-MuiInputBase-root-MuiInput-root:hover" : {
+                    ".css-1uktm3m-MuiInputBase-root-MuiInput-root:hover": {
                         borderBottomColor: colors.primary,
                     },
                     ".css-1uktm3m-MuiInputBase-root-MuiInput-root::after": {
@@ -72,25 +72,30 @@ const theme = createTheme({
         MuiSelect: {
             styleOverrides: {
                 root: {
-                    color: "#5A5A5A",
+                    color: colors.primary,
                     fontSize: '14px',
-                    border: '1px solid #fff',
+                    borderBottomColor: `${colors.primary}`,
                     ':hover': {
-                        border: '1px solid #fff',
+                        borderBottomColor: `${colors.primary}`,
                     },
                     '.MuiSelect-select': {
-                        border: '1px solid #fff',
+                        borderBottomColor: `${colors.primary}`,
+                    },
+                    '&&.css-e7kmhy-MuiInputBase-root-MuiInput-root-MuiSelect-root::before': {
+                        borderBottomColor: `${colors.primary}`,
                     }
                 },
                 filled: {
                     fontSize: '14px',
-                    color: "#5A5A5A",
-                    border: '1px solid #fff',
+                    borderBottomColor: `${colors.primary}`,
                     ':hover': {
-                        border: '1px solid #fff',
+                        borderBottomColor: `${colors.primary}`,
                     },
                     '.MuiSelect-select': {
-                        border: '1px solid #fff',
+                        borderBottomColor: `${colors.primary}`,
+                    },
+                    '&&.css-e7kmhy-MuiInputBase-root-MuiInput-root-MuiSelect-root::before': {
+                        borderBottomColor: `${colors.primary}`,
                     }
                 },
             },

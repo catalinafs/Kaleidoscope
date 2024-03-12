@@ -1,18 +1,20 @@
 // React
 import { useEffect, useState } from 'react';
 
+// Hooks, Clients, Global States, Configs, etc.
 import useValidations from '../../hooks/useValidations';
 import { LoginRegex } from '../../regex';
+import axios from 'axios';
 
 // Custom Components
 import Layout from '../../components/layouts';
+import Toast from '../../components/ui/Toast';
 
 // Material UI
 import { Container, Stack, Typography, TextField, Button } from '@mui/material';
 
 // Colors, Imgs, Icons, etc.
 import colors from '../../utils/colors';
-import axios from 'axios';
 
 const initForm = {
     email: '',
@@ -49,8 +51,15 @@ const Login = () => {
         try {
             const data = await axios.post('http://localhost:9283/users/login', form);
             console.log(data)
+            Toast({
+                text: 'Acceso concedido',
+                icon: 'success',
+            });
         } catch (error) {
-            console.log(error)
+            return Toast({
+                text: error.response.data.msg || error.message || 'Error 400',
+                icon: 'error',
+            });
         }
     };
 
