@@ -1,6 +1,6 @@
 // React
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Material UI
 import {
@@ -21,25 +21,26 @@ import {
 } from '@mui/material';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 import OutputIcon from '@mui/icons-material/Output';
-import PaymentRoundedIcon from '@mui/icons-material/PaymentRounded';
-import RocketOutlinedIcon from '@mui/icons-material/RocketOutlined';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import UpdateRoundedIcon from '@mui/icons-material/UpdateRounded';
 
 // Colors, Imgs, Icons, etc.
 import colors from '../../../utils/colors';
+import useCapitalize from '../../../hooks/useCapitalize';
 
 const Links = [
     {
         id: 1,
-        icon: <RocketOutlinedIcon sx={{ fontSize: { xs: '22px', md: '24px' } }} />,
-        text: 'Dashboard',
-        linkNav: '/login',
+        icon: <InventoryIcon sx={{ fontSize: { xs: '22px', md: '24px' } }} />,
+        text: 'Productos',
+        linkNav: '/admin/products',
     },
     {
         id: 2,
-        icon: <PaymentRoundedIcon sx={{ fontSize: { xs: '22px', md: '24px' } }} />,
-        text: 'Facturación y pagos',
-        linkNav: '/admin/payments',
+        icon: <LibraryAddIcon sx={{ fontSize: { xs: '22px', md: '24px' } }} />,
+        text: 'Agregar producto',
+        linkNav: '/admin/add',
     },
     {
         id: 3,
@@ -52,13 +53,23 @@ const Links = [
 const NavBarAdmin = () => {
     const [anchorElUser, setAnchorElUser] = useState();
 
+    const navigate = useNavigate();
+
     const theme = useTheme();
     const md = useMediaQuery(theme.breakpoints.up('md'));
 
     const drawerWidth = md ? 260 : 58;
 
+    const { name, email } = JSON.parse(localStorage.getItem('user'));
+
     const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget);
     const handleCloseUserMenu = () => setAnchorElUser(null);
+    const handleLogOut = () => {
+        localStorage.setItem('user', '');
+        localStorage.setItem('access_token', '');
+
+        navigate('/');
+    }
 
     return (
         <>
@@ -156,14 +167,14 @@ const NavBarAdmin = () => {
                                 fontSize='15px'
                                 fontWeight='600'
                             >
-                                Catalina Forero
+                                {useCapitalize(name)}
                             </Typography>
                             <Typography
                                 variant="h6"
                                 color={colors.background}
                                 fontSize='14px'
                             >
-                                catalinaforerosuarez@gmail.com
+                                {email}
                             </Typography>
                         </Stack>
 
@@ -200,6 +211,7 @@ const NavBarAdmin = () => {
                                 paddingTop: 0,
                                 paddingBottom: 0,
                             }}
+                            onClick={handleLogOut}
                         >
                             Log Out
                         </Button>

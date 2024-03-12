@@ -14,3 +14,10 @@ export const RegisterRegex = {
     role: /^(client|admin)$/,
     password: /.{8,}/,
 };
+
+// Create Product -----------------------------------------------------------------
+
+export const CreateProductRegex = {
+    name: /.*/s,
+    price: /^(?=.*[0-9]).*$/,
+};

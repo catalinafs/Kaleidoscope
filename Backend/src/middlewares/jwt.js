@@ -4,6 +4,7 @@ const { keyToken } = require("../config");
 
 module.exports = (req = request, res = response, next) => {
   const token = req.headers["access-token"];
+  console.log(token)
   try {
     if (!token) {
       return res.status(500).json({ msg: "Not provided token" });

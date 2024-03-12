@@ -18,7 +18,7 @@ const routes = [
     },
     // Admin -------------------------------------------
     {
-        route: '/admin',
+        route: '/admin/products',
         // role: 'admin',
         component: <AdminDash />
     },

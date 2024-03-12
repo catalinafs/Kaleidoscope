@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const { keyToken } = require("../config");
 
 module.exports = (req = request, res = response) => {
-  const { access_token } = req.headers;
+  const access_token = req.headers['access-token'];
 
   if (!access_token) {
     return res.status(400).send("No se ha enviado el token");
@@ -11,9 +11,9 @@ module.exports = (req = request, res = response) => {
 
   const data = jwt.verify(access_token, keyToken);
 
-  const { client } = data.payload;
+  const { role } = data;
 
-  if (client !== "admin") {
+  if (role !== "admin") {
     return true;
   } else {
     return false;

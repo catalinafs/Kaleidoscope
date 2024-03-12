@@ -1,5 +1,6 @@
 // React
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Hooks, Clients, Global States, Configs, etc.
 import useValidations from '../../hooks/useValidations';
@@ -23,6 +24,8 @@ const initForm = {
 
 const Login = () => {
     const [form, setForm] = useState(initForm);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         document.title = "Login | Kaleidoscope";
@@ -49,15 +52,32 @@ const Login = () => {
         }
 
         try {
-            const data = await axios.post('http://localhost:9283/users/login', form);
-            console.log(data)
+            const response = await axios.post('http://localhost:9283/users/login', form);
+
             Toast({
                 text: 'Acceso concedido',
                 icon: 'success',
             });
+
+            const { token, user } = response?.data;
+
+            const userData = {
+                name: user.name,
+                email: user.email,
+                role: user.role,
+            };
+
+            localStorage.setItem('access_token', token);
+            localStorage.setItem('user', JSON.stringify(userData));
+
+            if (user.role === 'admin') {
+                return navigate('/admin/products');
+            }
+
+            return navigate('/client');
         } catch (error) {
             return Toast({
-                text: error.response.data.msg || error.message || 'Error 400',
+                text: 'Error 400',
                 icon: 'error',
             });
         }

@@ -31,7 +31,7 @@ const createProducts = async (req = request, res = response) => {
     if (validateToken(req, res)) {
       return res
         .status(400)
-        .send("No se tienen los permisos requeridos para esta accion");
+        .json({ msg: "No se tienen los permisos requeridos para esta accion" });
     }
 
     if (!name && !price) {
@@ -73,7 +73,7 @@ const updateProduct = async (req = request, res = response) => {
     if (validateToken(req, res)) {
       return res
         .status(400)
-        .send("No se tienen los permisos requeridos para esta accion");
+        .json({ msg: "No se tienen los permisos requeridos para esta accion" });
     }
 
     const productChanged = await Products.update(
@@ -103,7 +103,7 @@ const disableProduct = async (req = request, res = response) => {
     if (validateToken(req, res)) {
       return res
         .status(400)
-        .send("No se tienen los permisos requeridos para esta accion");
+        .json({ msg: "No se tienen los permisos requeridos para esta accion" });
     }
 
     const productChanged = await Products.update(
@@ -132,7 +132,7 @@ const enableProduct = async (req = request, res = response) => {
     if (validateToken(req, res)) {
       return res
         .status(400)
-        .send("No se tienen los permisos requeridos para esta accion");
+        .json({ msg: "No se tienen los permisos requeridos para esta accion" });
     }
 
     const productChanged = await Products.update(
