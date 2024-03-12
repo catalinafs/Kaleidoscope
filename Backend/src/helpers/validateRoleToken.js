@@ -4,9 +4,10 @@ const { keyToken } = require("../config");
 
 module.exports = (req = request, res = response) => {
   const access_token = req.headers['access-token'];
-
+  console.log(access_token)
+  console.log(req.headers)
   if (!access_token) {
-    return res.status(400).send("No se ha enviado el token");
+    throw new Error('No se envio el token');
   }
 
   const data = jwt.verify(access_token, keyToken);

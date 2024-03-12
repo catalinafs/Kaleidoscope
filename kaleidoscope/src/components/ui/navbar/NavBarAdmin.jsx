@@ -2,6 +2,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+// Hooks, Clients, Global States, Configs, etc.
+import useCapitalize from '../../../hooks/useCapitalize';
+
 // Material UI
 import {
     Drawer,
@@ -22,12 +25,11 @@ import {
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 import OutputIcon from '@mui/icons-material/Output';
 import InventoryIcon from '@mui/icons-material/Inventory';
-import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import UpdateRoundedIcon from '@mui/icons-material/UpdateRounded';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 // Colors, Imgs, Icons, etc.
 import colors from '../../../utils/colors';
-import useCapitalize from '../../../hooks/useCapitalize';
 
 const Links = [
     {
@@ -38,9 +40,9 @@ const Links = [
     },
     {
         id: 2,
-        icon: <LibraryAddIcon sx={{ fontSize: { xs: '22px', md: '24px' } }} />,
-        text: 'Agregar producto',
-        linkNav: '/admin/add',
+        icon: <DeleteIcon sx={{ fontSize: { xs: '22px', md: '24px' } }} />,
+        text: 'Eliminar producto',
+        linkNav: '/admin/delete',
     },
     {
         id: 3,
@@ -110,7 +112,7 @@ const NavBarAdmin = () => {
                             return (
                                 <Link
                                     key={id}
-                                    href={linkNav}
+                                    to={linkNav}
                                     style={{
                                         textDecoration: 'none',
                                     }}

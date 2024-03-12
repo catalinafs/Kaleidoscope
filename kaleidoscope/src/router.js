@@ -2,6 +2,7 @@
 import Login from "./views/auth/Login";
 import Register from "./views/auth/Register";
 import AdminDash from "./views/dashboards/admin";
+import DeleteProduct from "./views/dashboards/admin/DeleteProduct";
 import ClientDash from "./views/dashboards/client";
 
 const routes = [
@@ -21,6 +22,11 @@ const routes = [
         route: '/admin/products',
         // role: 'admin',
         component: <AdminDash />
+    },
+    {
+        route: '/admin/delete',
+        // role: 'admin',
+        component: <DeleteProduct />
     },
     // Client ------------------------------------------
     {

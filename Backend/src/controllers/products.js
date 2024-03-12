@@ -98,12 +98,18 @@ const updateProduct = async (req = request, res = response) => {
 const disableProduct = async (req = request, res = response) => {
   const transaction = await sequelieze.transaction();
   try {
-    const { id } = req.params;
+    const { id } = req?.params;
 
-    if (validateToken(req, res)) {
+    try {
+      if (validateToken(req, res)) {
+        return res
+          .status(400)
+          .json({ msg: "No se tienen los permisos requeridos para esta accion" });
+      }
+    } catch (error) {
       return res
         .status(400)
-        .json({ msg: "No se tienen los permisos requeridos para esta accion" });
+        .json({ msg: error.message });
     }
 
     const productChanged = await Products.update(
@@ -147,7 +153,7 @@ const enableProduct = async (req = request, res = response) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
+    res.status(500).json({
       msg: "Error en el servidor",
       status: false,
     });
