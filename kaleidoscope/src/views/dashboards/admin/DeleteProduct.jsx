@@ -38,10 +38,11 @@ const DeleteProduct = () => {
 
             const response = await axios.patch(
                 `http://localhost:9283/products/disable/${productID}`,
+                {},
                 {
                     headers: {
                         'access-token': access_token,
-                    }
+                    },
                 }
             );
 
