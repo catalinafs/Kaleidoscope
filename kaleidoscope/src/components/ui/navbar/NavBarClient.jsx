@@ -20,12 +20,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 // Colors, Imgs, Icons, Css, etc.
 import colors from "../../../utils/colors";
+import useCapitalize from "../../../hooks/useCapitalize";
 
 const NavBarClient = () => {
     const [anchorElUser, setAnchorElUser] = useState();
     const [anchorAccount, setAnchorAccount] = useState();
 
     const navigate = useNavigate();
+
+    const { name } = JSON.parse(localStorage.getItem('user'));
 
     const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget);
     const handleCloseUserMenu = () => setAnchorElUser(null);
@@ -69,7 +72,7 @@ const NavBarClient = () => {
                     <Stack
                         display={{ xs: 'none', md: 'flex' }}
                         direction='row'
-                        spacing='10px'
+                        spacing='15px'
                         paddingRight='110px'
                     >
                         <Typography
@@ -159,6 +162,17 @@ const NavBarClient = () => {
                                     variant="body1"
                                     color={colors.primary}
                                 >
+                                    Cerrar Sesion
+                                </Typography>
+                            </MenuItem>
+                            <MenuItem
+                                sx={{ padding: { xs: '0px 5px', md: '2px 8px' } }}
+                                onClick={() => { return navigate('/client') }}
+                            >
+                                <Typography
+                                    variant="body1"
+                                    color={colors.primary}
+                                >
                                     Eliminar cuenta
                                 </Typography>
                             </MenuItem>
@@ -169,7 +183,7 @@ const NavBarClient = () => {
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenAccount} sx={{ p: 0, }}>
                                 <Avatar
-                                    alt={`Catalina Forero`}
+                                    alt={`${useCapitalize(name)}`}
                                     src="/static/images/avatar/2.jpg"
                                     sx={{ backgroundColor: colors.primary }}
                                 />
@@ -193,7 +207,13 @@ const NavBarClient = () => {
                         >
                             <MenuItem
                                 sx={{ padding: { xs: '0px 5px', md: '2px 8px' } }}
-                                onClick={() => { return navigate('/client') }}
+                                onClick={() => { return navigate('/') }}
+                            >
+                                <Typography textAlign="center">Cerrar Sesion</Typography>
+                            </MenuItem>
+                            <MenuItem
+                                sx={{ padding: { xs: '0px 5px', md: '2px 8px' } }}
+                                onClick={() => { return navigate('/') }}
                             >
                                 <Typography textAlign="center">Eliminar cuenta</Typography>
                             </MenuItem>

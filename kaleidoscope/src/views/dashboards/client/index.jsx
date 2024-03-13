@@ -1,9 +1,16 @@
-const ClientDash = () => {
+import LayoutClient from "../../../components/layouts/LayoutClient";
+
+// Material UI
+import { Container } from '@mui/material'
+
+const ClientProducts = () => {
     return (
-        <div>
-            client
-        </div>
+        <LayoutClient>
+            <Container maxWidth="lg">
+                si
+            </Container>
+        </LayoutClient>
     );
 }
 
-export default ClientDash;
+export default ClientProducts;
