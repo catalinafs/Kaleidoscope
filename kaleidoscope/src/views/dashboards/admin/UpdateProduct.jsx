@@ -6,40 +6,91 @@ import axios from "axios";
 
 // Custom Components
 import LayoutAdmin from "../../../components/layouts/LayoutAdmin";
-import Toast from "../../../components/ui/Toast";
 import NoProducts from "../../../components/dash/admin/NoProducts";
 import Product from "../../../components/ui/Product";
+import Toast from "../../../components/ui/Toast";
 
 // Material UI
 import {
-    Container,
-    Typography,
-    Box,
-    Stack,
-    IconButton,
     Backdrop,
-    CircularProgress
+    Box,
+    Button,
+    CircularProgress,
+    Container,
+    IconButton,
+    Stack,
+    TextField,
+    Typography
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import UpdateIcon from '@mui/icons-material/Update';
 
 // Colors, Imgs, Icons, etc.
 import colors from "../../../utils/colors";
+import Modal from "../../../components/ui/Modal";
+import useValidations from "../../../hooks/useValidations";
+import { CreateProductRegex } from "../../../regex";
 
-const DeleteProduct = () => {
+const initForm = {
+    name: '',
+    price: '',
+};
+
+const UpdateProduct = () => {
     const [dataProducts, setDataProducts] = useState([]);
+    const [form, setForm] = useState(initForm);
+    const [productId, setProductId] = useState([]);
+    const [updateModal, setUpdateModal] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [loadingDelete, setLoadingDelete] = useState(false);
+    const [loadingUpdate, setLoadingUpdate] = useState(false);
 
-    const handleDelete = async (event, productID) => {
+    const { accionValidations, formError } = useValidations(initForm);
+
+    const handleUpdate = async (event, productID) => {
         event.preventDefault();
 
-        setLoadingDelete(true);
+        setProductId(productID);
+
+        const product = dataProducts.find(product => product.id === productID);
+
+        setForm({
+            name: product.name,
+            price: product.price,
+        });
+
+        setUpdateModal(true);
+    }
+
+    const updateModalClose = () => {
+        setForm(initForm);
+        setUpdateModal(false);
+    }
+
+    const handleOnChange = (event) => {
+        const { value, name } = event.target;
+
+        setForm({
+            ...form,
+            [name]: value
+        });
+    }
+
+    const handleUpdateForm = async (event) => {
+        event.preventDefault();
+
+        const ok = accionValidations(form, CreateProductRegex);
+
+        if (ok) {
+            return;
+        }
+
+        setLoadingUpdate(true);
+
         try {
             const access_token = localStorage.getItem("access_token");
 
-            const response = await axios.patch(
-                `http://localhost:9283/products/disable/${productID}`,
-                {},
+            const responseUpdate = await axios.patch(
+                `http://localhost:9283/products/update/${productId}`,
+                form,
                 {
                     headers: {
                         'access-token': access_token,
@@ -47,28 +98,26 @@ const DeleteProduct = () => {
                 }
             );
 
-            const updatedProducts = dataProducts.map((product) => { return product.id !== productID });
-            setDataProducts(updatedProducts);
+            const response = await axios.get('http://localhost:9283/products');
+            setDataProducts(response.data);
 
+            setUpdateModal(false);
             Toast({
-                text: 'Producto eliminado',
+                text: 'Producto actualizado correctamente',
                 icon: 'success',
             });
         } catch (error) {
             return Toast({
-                text: error?.response?.data?.msg || error?.message || 'Error 400',
+                text: error?.response?.data?.msg || error?.message || 'Error al actualizar el producto',
                 icon: 'error',
             });
         } finally {
-            setLoadingDelete(false);
+            setLoadingUpdate(false);
         }
-
-        const updatedProducts = dataProducts.filter(product => product.id !== productID);
-        setDataProducts(updatedProducts);
     }
 
     useEffect(() => {
-        document.title = "Delete Product | Kaleidoscope";
+        document.title = "Update Product | Kaleidoscope";
 
         setLoading(true);
         (async () => {
@@ -77,7 +126,7 @@ const DeleteProduct = () => {
                 setDataProducts(response.data);
             } catch (error) {
                 return Toast({
-                    text: error.response.data.msg || error.message || 'Error 400',
+                    text: error?.response?.data?.msg || error?.message || 'Error al traer los productos',
                     icon: 'error',
                 });
             } finally {
@@ -95,9 +144,9 @@ const DeleteProduct = () => {
                     variant="h2"
                     color={colors.text}
                     fontSize='30px'
-                    fontWeight={600} F
+                    fontWeight={600}
                 >
-                    Eliminar un producto
+                    Actualizar un producto
                 </Typography>
 
                 {
@@ -126,7 +175,7 @@ const DeleteProduct = () => {
 
                                                 <IconButton
                                                     aria-label="delete"
-                                                    onClick={(event) => handleDelete(event, product.id)}
+                                                    onClick={(event) => handleUpdate(event, product.id)}
                                                     sx={{
                                                         color: colors.primary,
                                                         position: 'absolute',
@@ -136,7 +185,7 @@ const DeleteProduct = () => {
                                                         padding: '3px 4px',
                                                     }}
                                                 >
-                                                    <DeleteIcon />
+                                                    <UpdateIcon />
                                                 </IconButton>
                                             </Box>
                                         );
@@ -147,10 +196,53 @@ const DeleteProduct = () => {
                 }
             </Container>
 
+            {/* Update Modal */}
+            <Modal
+                modalState={updateModal}
+                handleModalClose={updateModalClose}
+                containerWidth="xs"
+            >
+                <Stack>
+                    {/* Product Name */}
+                    <TextField
+                        id="name"
+                        name='name'
+                        label="Nombre del producto"
+                        variant='standard'
+                        value={form?.name}
+                        error={!!formError?.name}
+                        helperText={formError?.name}
+                        onChange={handleOnChange}
+                        sx={{ marginTop: 2 }}
+                    />
+
+                    {/* Product Price */}
+                    <TextField
+                        id="price"
+                        name='price'
+                        label="Precio del producto"
+                        variant='standard'
+                        value={form?.price}
+                        error={!!formError?.price}
+                        helperText={formError?.price}
+                        onChange={handleOnChange}
+                        sx={{ marginTop: 2 }}
+                    />
+
+                    <Button
+                        sx={{ marginTop: 4 }}
+                        variant="contained"
+                        onClick={handleUpdateForm}
+                    >
+                        Ingresar
+                    </Button>
+                </Stack>
+            </Modal>
+
             {/* Backdrop for the loading */}
             <Backdrop
                 sx={{ color: colors.white, zIndex: '100' }}
-                open={loadingDelete}
+                open={loadingUpdate}
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
@@ -158,4 +250,4 @@ const DeleteProduct = () => {
     );
 }
 
-export default DeleteProduct;
+export default UpdateProduct;

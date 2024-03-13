@@ -3,7 +3,6 @@ const { request, response } = require("express");
 module.exports = (req = request, res = response, next) => {
   try {
     const { name, price } = req.body;
-
     if (!name) {
       return res
         .status(400)

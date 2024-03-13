@@ -22,11 +22,11 @@ import {
     Menu,
     MenuItem,
 } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import InventoryIcon from '@mui/icons-material/Inventory';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 import OutputIcon from '@mui/icons-material/Output';
-import InventoryIcon from '@mui/icons-material/Inventory';
-import UpdateRoundedIcon from '@mui/icons-material/UpdateRounded';
-import DeleteIcon from '@mui/icons-material/Delete';
+import UpdateIcon from '@mui/icons-material/Update';
 
 // Colors, Imgs, Icons, etc.
 import colors from '../../../utils/colors';
@@ -46,9 +46,9 @@ const Links = [
     },
     {
         id: 3,
-        icon: <UpdateRoundedIcon sx={{ fontSize: { xs: '22px', md: '24px' } }} />,
-        text: 'Reportes de visita',
-        linkNav: '/admin/records',
+        icon: <UpdateIcon sx={{ fontSize: { xs: '22px', md: '24px' } }} />,
+        text: 'Actualizar un product',
+        linkNav: '/admin/update',
     },
 ];
 
