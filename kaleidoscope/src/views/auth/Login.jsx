@@ -12,7 +12,7 @@ import Layout from '../../components/layouts';
 import Toast from '../../components/ui/Toast';
 
 // Material UI
-import { Container, Stack, Typography, TextField, Button } from '@mui/material';
+import { Container, Stack, Typography, TextField, Button, Backdrop, CircularProgress } from '@mui/material';
 
 // Colors, Imgs, Icons, etc.
 import colors from '../../utils/colors';
@@ -24,6 +24,7 @@ const initForm = {
 
 const Login = () => {
     const [form, setForm] = useState(initForm);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -51,6 +52,7 @@ const Login = () => {
             return;
         }
 
+        setLoading(true);
         try {
             const response = await axios.post('http://localhost:9283/users/login', form);
 
@@ -80,6 +82,8 @@ const Login = () => {
                 text: 'Error 400',
                 icon: 'error',
             });
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -135,6 +139,14 @@ const Login = () => {
                     </Stack>
                 </Stack>
             </Container>
+
+            {/* Backdrop for the loading */}
+            <Backdrop
+                sx={{ color: colors.white, zIndex: '100' }}
+                open={loading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </Layout>
     );
 }
