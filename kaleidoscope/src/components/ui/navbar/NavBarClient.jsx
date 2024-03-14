@@ -1,5 +1,5 @@
 // React
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 
 // Material UI
@@ -25,10 +25,9 @@ import useCapitalize from "../../../hooks/useCapitalize";
 const NavBarClient = () => {
     const [anchorElUser, setAnchorElUser] = useState();
     const [anchorAccount, setAnchorAccount] = useState();
+    const [name, setName] = useState('');
 
     const navigate = useNavigate();
-
-    const { name } = JSON.parse(localStorage.getItem('user'));
 
     const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget);
     const handleCloseUserMenu = () => setAnchorElUser(null);
@@ -42,6 +41,13 @@ const NavBarClient = () => {
 
         navigate('/');
     }
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            setName(user.name);
+        }
+    }, []);
 
     return (
         <AppBar

@@ -12,39 +12,39 @@ const routes = [
     // Auth --------------------------------------------
     {
         route: '/login',
-        // role: 'auth',
+        role: 'auth',
         component: <Login />
     },
     {
         route: '/register',
-        // role: 'auth',
+        role: 'auth',
         component: <Register />
     },
     // Admin -------------------------------------------
     {
         route: '/admin/products',
-        // role: 'admin',
+        role: 'admin',
         component: <AdminDash />
     },
     {
         route: '/admin/delete',
-        // role: 'admin',
+        role: 'admin',
         component: <DeleteProduct />
     },
     {
         route: '/admin/update',
-        // role: 'admin',
+        role: 'admin',
         component: <UpdateProduct />
     },
     // Client ------------------------------------------
     {
         route: '/client',
-        // role: 'client',
+        role: 'client',
         component: <ClientProducts />
     },
     {
         route: '/client/cart',
-        // role: 'client',
+        role: 'client',
         component: <Cart />
     },
 ];

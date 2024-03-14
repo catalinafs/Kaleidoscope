@@ -15,6 +15,8 @@ import NotFound from "./views/NotFound.jsx";
 // Material UI
 import { ThemeProvider } from "@emotion/react";
 import theme from "./utils/theme";
+import Inicio from "./views/index.jsx";
+import LayoutAuth from "./components/layouts/LayoutAuth.jsx";
 
 const App = () => {
   const getRoutes = (allRoutes) => allRoutes.map((route) => {
@@ -34,15 +36,16 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* //todo: proteccion de rutas */}
-      <Router>
-        <Routes>
-          {getRoutes(routes)}
-          <Route path='/' element={<Navigate to='/login' />} />
-          <Route exact path='/NotFound' element={<NotFound /> } />
-          <Route path='*' element={<Navigate to='/NotFound' />} />
-        </Routes>
-      </Router>
+      <LayoutAuth>
+        <Router>
+          <Routes>
+            {getRoutes(routes)}
+            <Route path='/' element={<Inicio />} />
+            <Route exact path='/NotFound' element={<NotFound />} />
+            <Route path='*' element={<Navigate to='/NotFound' />} />
+          </Routes>
+        </Router>
+      </LayoutAuth>
     </ThemeProvider>
   );
 }

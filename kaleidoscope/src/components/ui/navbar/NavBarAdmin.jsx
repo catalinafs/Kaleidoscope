@@ -1,5 +1,5 @@
 // React
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 // Hooks, Clients, Global States, Configs, etc.
@@ -54,6 +54,8 @@ const Links = [
 
 const NavBarAdmin = () => {
     const [anchorElUser, setAnchorElUser] = useState();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
 
     const navigate = useNavigate();
 
@@ -61,8 +63,6 @@ const NavBarAdmin = () => {
     const md = useMediaQuery(theme.breakpoints.up('md'));
 
     const drawerWidth = md ? 260 : 58;
-
-    const { name, email } = JSON.parse(localStorage.getItem('user'));
 
     const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget);
     const handleCloseUserMenu = () => setAnchorElUser(null);
@@ -73,6 +73,14 @@ const NavBarAdmin = () => {
 
         navigate('/');
     }
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            setName(user.name);
+            setEmail(user.email);
+        }
+    }, []);
 
     return (
         <>
