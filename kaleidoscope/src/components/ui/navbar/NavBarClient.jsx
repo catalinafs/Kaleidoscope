@@ -35,6 +35,14 @@ const NavBarClient = () => {
     const handleOpenAccount = (event) => setAnchorAccount(event.currentTarget);
     const handleCloseAccount = () => setAnchorAccount(null);
 
+    const handleLogOut = () => {
+        localStorage.setItem('user', '');
+        localStorage.setItem('access_token', '');
+        localStorage.setItem('cart', '');
+
+        navigate('/');
+    }
+
     return (
         <AppBar
             position='sticky'
@@ -73,7 +81,7 @@ const NavBarClient = () => {
                         display={{ xs: 'none', md: 'flex' }}
                         direction='row'
                         spacing='15px'
-                        paddingRight='110px'
+                        paddingRight='160px'
                     >
                         <Typography
                             variant="h3"
@@ -81,6 +89,7 @@ const NavBarClient = () => {
                             fontSize='18px'
                             fontWeight={500}
                             component={Link}
+                            to='/client'
                             sx={{
                                 textDecoration: 'none',
                                 ':hover': {
@@ -96,6 +105,7 @@ const NavBarClient = () => {
                             fontSize='18px'
                             fontWeight={500}
                             component={Link}
+                            to='/client/cart'
                             sx={{
                                 textDecoration: 'none',
                                 ':hover': {
@@ -134,7 +144,7 @@ const NavBarClient = () => {
                         >
                             <MenuItem
                                 sx={{ padding: { xs: '0px 5px', md: '2px 8px' } }}
-                                onClick={() => { return navigate('/client/products') }}
+                                onClick={() => { return navigate('/client') }}
                             >
                                 <Typography
                                     variant="body1"
@@ -207,15 +217,9 @@ const NavBarClient = () => {
                         >
                             <MenuItem
                                 sx={{ padding: { xs: '0px 5px', md: '2px 8px' } }}
-                                onClick={() => { return navigate('/') }}
+                                onClick={handleLogOut}
                             >
                                 <Typography textAlign="center">Cerrar Sesion</Typography>
-                            </MenuItem>
-                            <MenuItem
-                                sx={{ padding: { xs: '0px 5px', md: '2px 8px' } }}
-                                onClick={() => { return navigate('/') }}
-                            >
-                                <Typography textAlign="center">Eliminar cuenta</Typography>
                             </MenuItem>
                         </Menu>
                     </Box>

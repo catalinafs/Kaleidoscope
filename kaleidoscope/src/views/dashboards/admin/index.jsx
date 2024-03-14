@@ -32,8 +32,6 @@ const AdminDash = () => {
     const [loading, setLoading] = useState(false);
     const [createProduct, setCreateProduct] = useState(false);
 
-    const navigate = useNavigate();
-
     const { accionValidations, formError } = useValidations(initForm);
 
     const handleCreateProductClose = () => setCreateProduct(false);

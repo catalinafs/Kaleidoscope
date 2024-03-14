@@ -69,6 +69,7 @@ const NavBarAdmin = () => {
     const handleLogOut = () => {
         localStorage.setItem('user', '');
         localStorage.setItem('access_token', '');
+        localStorage.setItem('cart', '');
 
         navigate('/');
     }

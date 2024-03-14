@@ -64,6 +64,7 @@ const Login = () => {
             const { token, user } = response?.data;
 
             const userData = {
+                id: user.id,
                 name: user.name,
                 email: user.email,
                 role: user.role,
@@ -76,6 +77,7 @@ const Login = () => {
                 return navigate('/admin/products');
             }
 
+            localStorage.setItem('cart', JSON.stringify([]));
             return navigate('/client');
         } catch (error) {
             return Toast({

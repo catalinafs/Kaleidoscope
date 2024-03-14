@@ -5,6 +5,7 @@ import AdminDash from "./views/dashboards/admin";
 import DeleteProduct from "./views/dashboards/admin/DeleteProduct";
 import UpdateProduct from "./views/dashboards/admin/UpdateProduct";
 import ClientProducts from "./views/dashboards/client";
+import Cart from "./views/dashboards/client/Cart";
 
 // Routes
 const routes = [
@@ -40,6 +41,11 @@ const routes = [
         route: '/client',
         // role: 'client',
         component: <ClientProducts />
+    },
+    {
+        route: '/client/cart',
+        // role: 'client',
+        component: <Cart />
     },
 ];
 
