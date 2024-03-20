@@ -1,9 +1,10 @@
 const { request, response } = require("express");
 const jwt = require("jsonwebtoken");
-const { keyToken } = require("../config");
+const { keyToken, nodemailerHost, nodemailerPort, userEmail, passwordGoogle } = require("../config");
 const { sequelieze, Client } = require("../models");
 const { validPassword } = require("../helpers/bycriptPassword");
 const validateToken = require("../helpers/validateRoleToken");
+const nodemailer = require('nodemailer');
 
 const createClient = async (req = request, res = response) => {
   const transaction = await sequelieze.transaction();
@@ -24,6 +25,25 @@ const createClient = async (req = request, res = response) => {
         transaction,
       }
     );
+
+    const transporter = nodemailer.createTransport({
+      host: nodemailerHost,
+      port: nodemailerPort,
+      secure: true,
+      auth: {
+        user: userEmail,
+        pass: passwordGoogle,
+      },
+    });
+
+    transporter.verify().then(() => console.log('Google Account Connected'));
+
+    await transporter.sendMail({
+      from: '"Kaleidoscope 👻" <catalinaforerosuarez@gmail.com>',
+      to: email,
+      subject: "Hello ✔",
+      html: "<b>Gracias por registrarte</b>",
+    });
 
     await transaction.commit();
     return res.status(200).json({
